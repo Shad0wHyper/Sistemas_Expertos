@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Riesgo</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Calculadora de Riesgo</h2>
+    <form id="formulario">
+        <label>Nombre:</label>
+        <input type="text" id="nombre" required>
+
+        <label>Edad:</label>
+        <input type="number" id="edad" required>
+
+        <label>Salud:</label>
+        <select id="salud">
+            <option value="saludable">Saludable</option>
+            <option value="hipertension">Hipertensión</option>
+            <option value="diabetes">Diabetes</option>
+            <option value="obesidad">Obesidad</option>
+        </select>
+
+        <label>Historial Familiar:</label>
+        <select id="historial_familiar">
+            <option value="false">No</option>
+            <option value="true">Sí</option>
+        </select>
+
+        <label>Estilo de Vida:</label>
+        <select id="estilo_vida">
+            <option value="sedentario">Sedentario</option>
+            <option value="activo">Activo</option>
+            <option value="deportista">Deportista</option>
+            <option value="fumador">Fumador</option>
+            <option value="alcoholico">Alcohólico</option>
+        </select>
+
+        <label>Ocupación:</label>
+        <select id="ocupacion">
+            <option value="oficina">Oficina</option>
+            <option value="bombero">Bombero</option>
+            <option value="minero">Minero</option>
+            <option value="piloto">Piloto</option>
+        </select>
+
+        <label>Historial de Seguro:</label>
+        <select id="historial_seguro">
+            <option value="bueno">Bueno</option>
+            <option value="reclamos_frecuentes">Reclamos Frecuentes</option>
+            <option value="malo">Malo</option>
+        </select>
+
+        <button type="button" onclick="calcularRiesgo()">Calcular Riesgo</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularRiesgo() {
+            const data = {
+                nombre: document.getElementById("nombre").value,
+                edad: parseInt(document.getElementById("edad").value),
+                salud: document.getElementById("salud").value,
+                historial_familiar: document.getElementById("historial_familiar").value,
+                estilo_vida: document.getElementById("estilo_vida").value,
+                ocupacion: document.getElementById("ocupacion").value,
+                historial_seguro: document.getElementById("historial_seguro").value
+            };
+
+            fetch("/calcular_riesgo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("resultado").innerHTML = `
+                    <p>Nombre: ${result.nombre}</p>
+                    <p>Puntuación Total: ${result.puntuacion_total}</p>
+                    <p>Nivel de Riesgo: <strong>${result.nivel_riesgo}</strong></p>
+                `;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
