@@ -1,0 +1,88 @@
+body {
+    background-color: #d6eaf8; /* Fondo azul claro */
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    color: #333; /* Color de texto oscuro */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 25px;
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 400px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 10px; /* Bordes redondeados */
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+}
+
+input:focus,
+select:focus {
+    border-color: #64b5f6; /* Borde azul al enfocar */
+    box-shadow: 0 0 5px rgba(100, 181, 246, 0.5); /* Sombra azul al enfocar */
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #42a5f5; /* Color azul */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #1e88e5; /* Color azul más oscuro al pasar el mouse */
+}
+
+#resultado_prestamo {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #ffffff; /* Fondo blanco */
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    font-size: 16px;
+    font-weight: bold;
+}

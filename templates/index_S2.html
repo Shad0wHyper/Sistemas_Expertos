@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Experto de Préstamos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_S2.css') }}">
+</head>
+<body>
+    <h1>Sistema Experto de Préstamos</h1>
+    <form id="formulario_prestamo">
+        <label>Nombre:</label>
+        <input type="text" id="nombre" required>
+
+        <label>Puntuación Crediticia:</label>
+        <input type="number" id="puntuacion_crediticia" required>
+
+        <label>Ingresos Mensuales:</label>
+        <input type="number" id="ingresos_mensuales" required>
+
+        <label>Cuota del Préstamo:</label>
+        <input type="number" id="cuota_prestamo" required>
+
+        <label>Relación Deuda/Ingreso (DTI):</label>
+        <input type="number" id="dti" required>
+
+        <label>Tipo de Empleo:</label>
+        <select id="empleo">
+            <option value="fijo">Contrato Fijo</option>
+            <option value="temporal">Contrato Temporal</option>
+            <option value="autonomo">Autónomo</option>
+        </select>
+
+        <label>Años de Experiencia:</label>
+        <input type="number" id="anios_experiencia" required>
+
+        <label>Garantías:</label>
+        <select id="garantias">
+            <option value="alta">Alta (Aval de Alto valor)</option>
+            <option value="media">Media (Aval de Menor Valor)</option>
+            <option value="baja">Baja (Sin Garantías)</option>
+        </select>
+
+        <label>Historial de Préstamos Previos:</label>
+        <select id="historial_prestamos">
+            <option value="bueno">Bueno (Sin Retrasos)</option>
+            <option value="moderado">Moderado (Retrasos Ocasionales)</option>
+            <option value="malo">Malo (Impagos o Deudas en Mora)</option>
+        </select>
+
+        <button type="button" onclick="evaluarPrestamo()">Evaluar Préstamo</button>
+    </form>
+
+    <div id="resultado_prestamo"></div>
+
+    <script>
+        function evaluarPrestamo() {
+            const data = {
+                nombre: document.getElementById("nombre").value,
+                puntuacion_crediticia: parseInt(document.getElementById("puntuacion_crediticia").value),
+                ingresos_mensuales: parseFloat(document.getElementById("ingresos_mensuales").value),
+                cuota_prestamo: parseFloat(document.getElementById("cuota_prestamo").value),
+                dti: parseFloat(document.getElementById("dti").value),
+                empleo: document.getElementById("empleo").value,
+                anios_experiencia: parseInt(document.getElementById("anios_experiencia").value),
+                garantias: document.getElementById("garantias").value,
+                historial_prestamos: document.getElementById("historial_prestamos").value
+            };
+
+            fetch("/evaluar_prestamo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("resultado_prestamo").innerHTML = `
+                    <p>Nombre: ${result.nombre}</p>
+                    <p>Puntuación Total: ${result.puntuacion_total}</p>
+                    <p>Decisión: <strong>${result.decision}</strong></p>
+                `;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
